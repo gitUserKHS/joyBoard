@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.me.board.dao.CommentMapper">
+
+    <insert id="insertComment" parameterType="CommentVo">
+        INSERT INTO comment (content, written_at, updated_at, post_id, user_name)
+        VALUES (#{content}, #{writtenAt}, #{updatedAt}, #{postId}, #{userName, jdbcType=VARCHAR})
+    </insert>
+
+    <select id="getUsernameById" parameterType="long" resultType="String">
+        SELECT user_name FROM comment WHERE id = #{commentId}
+    </select>
+
+    <update id="updateComment" parameterType="CommentVo">
+        UPDATE comment SET
+        content = #{content},
+        updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteComment" parameterType="long">
+        DELETE FROM comment WHERE id = #{commentId}
+    </delete>
+
+</mapper>

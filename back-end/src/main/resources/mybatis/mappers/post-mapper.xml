@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.me.board.dao.PostMapper">
+
+    <resultMap id="reply" type="ReplyVo">
+        <id property="id" column="reply_id"/>
+        <result property="content" column="reply_content"/>
+        <result property="writtenAt" column="reply_written_at"/>
+        <result property="updatedAt" column="reply_updated_at"/>
+        <result property="commentId" column="reply_comment_id"/>
+        <result property="userName" column="reply_user_name"/>
+    </resultMap>
+    
+    <resultMap id="comment" type="CommentVo">
+        <id property="id" column="comment_id"/>
+        <result property="content" column="comment_content"/>
+        <result property="writtenAt" column="comment_written_at"/>
+        <result property="updatedAt" column="comment_updated_at"/>
+        <result property="postId" column="comment_post_id"/>
+        <result property="userName" column="comment_user_name"/>
+        <collection property="replyList" column="commentId" resultMap="reply"/>
+    </resultMap>
+
+    <resultMap id="postWithComments" type="PostVo">
+        <id property="id" column="post_id"/>
+        <result property="title" column="post_title"/>
+        <result property="content" column="post_content"/>
+        <result property="writtenAt" column="post_written_at"/>
+        <result property="updatedAt" column="post_updated_at"/>
+        <result property="userName" column="post_user_name"/>
+        <collection property="commentList" column="postId" resultMap="comment"/>
+    </resultMap>
+
+    <select id="count" resultType="integer">
+        SELECT COUNT(*) FROM post
+    </select>
+
+    <select id="selectPostsByOffsetAndSize" parameterType="map" resultType="PostVo">
+        SELECT id, title, written_at, user_name
+        FROM post
+        ORDER BY id DESC
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="selectPostByIdWithCommentsAndReplies" resultMap="postWithComments">
+        SELECT
+        p.id as post_id,
+        p.title as post_title,
+        p.content as post_content,
+        p.written_at as post_written_at,
+        p.updated_at as post_updated_at,
+        p.user_name as post_user_name,
+        c.id as comment_id,
+        c.content as comment_content,
+        c.written_at as comment_written_at,
+        c.updated_at as comment_updated_at,
+        c.post_id as comment_post_id,
+        c.user_name as comment_user_name,
+        r.id as reply_id,
+        r.content as reply_content,
+        r.written_at as reply_written_at,
+        r.updated_at as reply_updated_at,
+        r.comment_id as reply_comment_id,
+        r.user_name as reply_user_name
+        FROM post p
+        LEFT JOIN comment c ON p.id = c.post_id
+        LEFT JOIN reply r ON c.id = r.comment_id
+        WHERE p.id = #{postId}
+    </select>
+
+    <select id="getUsernameById" parameterType="int" resultType="String">
+        SELECT user_name FROM post WHERE id = #{postId}
+    </select>
+
+    <insert id="insertPost" parameterType="PostVo">
+        INSERT INTO post (title, content, written_at, updated_at, user_name)
+        VALUES (#{title}, #{content}, #{writtenAt}, #{updatedAt}, #{userName, jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updatePost" parameterType="PostVo">
+        UPDATE post SET title = #{title}, content = #{content}, updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deletePost" parameterType="int">
+        DELETE FROM post WHERE id = #{postId}
+    </delete>
+
+</mapper>

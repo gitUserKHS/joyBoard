@@ -1,0 +1,19 @@
+HELP.md
+.gradle
+back-end/build/
+back-end/!gradle/wrapper/gradle-wrapper.jar
+back-end/!**/src/main/**/build/
+back-end/!**/src/test/**/build/
+back-end/src/main/**/application.yml
+
+### IntelliJ IDEA ###
+back-end/.idea
+back-end/*.iws
+back-end/*.iml
+back-end/*.ipr
+back-end/out/
+back-end/!**/src/main/**/out/
+back-end/!**/src/test/**/out/
+
+### VS Code ###
+.vscode/

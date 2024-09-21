@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.me.board.dao.ReplyMapper">
+
+    <insert id="insertReply" parameterType="ReplyVo">
+        INSERT INTO reply (content, written_at, updated_at, comment_id, user_name)
+        VALUES (#{content}, #{writtenAt}, #{updatedAt}, #{commentId}, #{userName, jdbcType=VARCHAR})
+    </insert>
+
+    <select id="getUsernameById" parameterType="long">
+        SELECT user_name FROM reply WHERE id = #{replyId}
+    </select>
+
+    <update id="updateReply" parameterType="ReplyVo">
+        UPDATE reply SET
+        content = #{content},
+        updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteReply" parameterType="long">
+        DELETE FROM reply WHERE id = #{replyId}
+    </delete>
+
+</mapper>
