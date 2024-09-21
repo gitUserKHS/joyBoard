@@ -1,5 +1,5 @@
 # Mybatis로 게시판 서버 구현하기
-개요: 스프링 부트 + MySQL + Redis를 활용하여 만든 게시판 서버입니다. 
+개요: 스프링 부트 + MySQL + Redis를 활용하여 만든 게시판 서버입니다. 프론트엔드는 react를 활용하였습니다.
 
 ### 개발 기간 
 ---
@@ -20,6 +20,17 @@
 1. CRUD: 글(post), 댓글(comment), 대댓글(reply) 모두 쓰기, 읽기, 수정, 삭제 기능을 넣었습니다.
 2. 페이지네이션: MySQL의 LIMIT문법을 활용하여 페이지에 해당하는 위치에서 페이지 크기만큼 데이터를 가져오도록 하였습니다.
 3. JWT를 이용한 로그인 기능 구현: 로그인 시 accessToken과 refreshToken을 전송하여 클라이언트 측에서 refreshToken을 이용하여 accessToken을 재발급 받을 수 있도록 하였습니다.
+
+### 결과 화면
+---
+로그인 화면
+![결과-로그인](https://github.com/user-attachments/assets/15ee775f-0988-4125-967a-efce2ca274f9)
+
+메인 페이지 화면
+![결과-메인](https://github.com/user-attachments/assets/86fe7b61-9550-470a-9d35-4630db8238c9)
+
+게시글 + 댓글 + 대댓글 화면
+![결과-포스트](https://github.com/user-attachments/assets/632b8aa9-bfab-44b6-9dd9-e0ac02fca8b9)
 
 ### 포스트맨 실행 내용
 
@@ -81,12 +92,12 @@
 <br>
 로그인 (accessToken과 refreshToken 획득)
 
-![login](https://github.com/user-attachments/assets/ad4eec25-3614-4297-81b8-2bd7e2077b2b)
+![login](https://github.com/user-attachments/assets/84d7853d-c0d4-4dc9-869f-4bc163219e41)
 
 <br>
 accessToken 재발급
 
-![reissue](https://github.com/user-attachments/assets/9cc0c07c-979b-4812-bb8d-57503b9770e5)
+![reissue](https://github.com/user-attachments/assets/d4ec6a96-511d-4f50-9953-b7b3d54aca7f)
  
 ### ERD
 ---
