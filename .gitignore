@@ -1,10 +1,12 @@
-HELP.md
-.gradle
+back-end/HELP.md
+back-end/.gradle
 back-end/build/
 back-end/!gradle/wrapper/gradle-wrapper.jar
 back-end/!**/src/main/**/build/
 back-end/!**/src/test/**/build/
 back-end/src/main/**/application.yml
+
+front-end/node_modules
 
 ### IntelliJ IDEA ###
 back-end/.idea
