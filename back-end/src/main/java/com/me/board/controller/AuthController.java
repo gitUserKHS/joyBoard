@@ -42,7 +42,7 @@ public class AuthController {
         String accessTok = authService.reIssue(authStr, refreshTokenDto);
 
         if(accessTok == null)
-            return ResponseEntity.badRequest().body(Map.of("reissue", "fail"));
+            return ResponseEntity.status(401).body(Map.of("reissue", "fail"));
 
         accessTok = "Bearer " + accessTok;
 
