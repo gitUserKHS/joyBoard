@@ -21,10 +21,16 @@ const isLoggedIn = async () => {
     const currentTime = Date.now() / 1000; // 초 단위로 변환
 
     if (decodedPayload.exp <= currentTime){
-        console.log("check!")
-        const response = await axiosInstance.get(`${API_SERVER_HOST}/api/check`);
-        if(response.status !== 200)
+        console.log("check!");
+        const response = await axiosInstance.get(`${API_SERVER_HOST}/api/check`).catch((err) => {
+            console.log("error occured during checking isLoggedIn");
+            return null;
+        });
+        if(!response || response.status !== 200){
+            console.log(response);
             return false;
+        }
+
     }
 
     return true;

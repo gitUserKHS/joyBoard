@@ -17,14 +17,18 @@ function PostPage(props) {
     const { postId } = useParams();
     const [post, setPost] = useState(initState);
     const [loaded, setLoaded] = useState(false);
+    const [_isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         getOne(postId).then(data => {
             setPost(data);
-            setLoaded(true);
+            const checkLoginStatus = async () => {
+                setIsLoggedIn(await isLoggedIn());
+                setLoaded(true);
+            };
+            checkLoginStatus();
         });
     }, [postId]);
-    
 
     return (
         <div className="max-w-3xl mx-auto p-6 bg-gray-50 min-h-screen">
@@ -32,7 +36,7 @@ function PostPage(props) {
             <PostDetail 
             post={post}
             postId={postId}
-            _isLoggedIn={isLoggedIn()} 
+            _isLoggedIn={_isLoggedIn} 
             userName={getUserName()}
             /> : (
                 <p className="text-center text-gray-500">Loading...</p>
